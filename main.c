@@ -17,9 +17,19 @@ int	main(int argc, char **argv, char **env)
 	{
 		i = pipe(vars.fileds);
 		vars.pid = fork();
-
-		if (vars.pid == 0)
+		vars.cmd1 = ft_split(argv[2], ' ');
+		vars.cmd2 = ft_split(argv[3], ' ');
+		vars.path  = NULL;
+		// extration de path  from envirenoment
+		while (env[i] && vars.path == NULL)
 		{
+			vars.path = ft_strnstr(env[i], "PATH", 5);
+			i++;
+		}
+		vars.path = ft_substr(vars.path, 4, ft_strlen(vars.path) - 4);
+		vars.env = ft_split(vars.path, ':');
+		if (vars.pid == 0)
+		{ //  child 1 ===========================
 			vars.infile = open(argv[1], O_RDONLY);
 			if (vars.infile == -1)
 				err("infile");///errno
@@ -27,19 +37,44 @@ int	main(int argc, char **argv, char **env)
 			l = dup2(vars.fileds[1], 1); // dupi output m3a pipe
 			if (j  == -1 || l == -1)
 				err("dup2");// errno
-			//execve();
+			j = -1;
+			i = 0;
+			vars.cmd = ft_strjoin("/", vars.cmd1[0]);
+			while (j == -1 && vars.env[i])
+			{
+				
+				j = access(ft_strjoin(vars.env[i], vars.cmd), X_OK);
+				i++;
+			}
+			write(2, vars.env[i - 1], 3200 );
+			j = execve(vars.env[i-1], vars.cmd1, env);
+			if (j == -1)
+				err("execve");
 			//child 2 ================================================================
 			vars.pid_2 = fork();
 			if (vars.pid_2 == 0)
 			{
 				// implementation de premiere commande 
-				vars.outfile = open("outfile", O_CREAT | O_RDONLY | O_TRUNC);
+				vars.outfile = open(argv[5], O_CREAT | O_RDONLY | O_TRUNC); // trunk :D 
 				if (vars.outfile == -1)
 					err("outfile");
 				int o = dup2(vars.fileds[0], 0); // dupi output m3a pipe
 				int q = dup2(vars.outfile, 1); // dupi output m3a pipe
 				if (o == -1 || q == -1)
 					err("dup2");
+					// seconde commande 
+				j = -1;
+				i = 0;
+				vars.cmd = ft_strjoin("/", vars.cmd2[0]);
+				while (j == -1 && vars.env[i])
+				{
+					j = access(ft_strjoin(vars.env[i], vars.cmd), X_OK);
+					i++;
+				}
+			write(2,ft_strjoin(vars.env[i], vars.cmd), 3200 );
+				j = execve(vars.env[i], vars.cmd2, env);
+				if (j == -1)
+					err("execve");
 			}
 		}
 	}
