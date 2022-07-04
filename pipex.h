@@ -6,7 +6,7 @@
 /*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 21:02:52 by jchennak          #+#    #+#             */
-/*   Updated: 2022/07/04 19:34:26 by jchennak         ###   ########.fr       */
+/*   Updated: 2022/07/04 21:24:39 by jchennak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_data
 {
-	int fileds[2]; 
+	int		fileds[2]; 
 	pid_t	pid;
 	pid_t	pid_2;
 	int		infile;
@@ -31,6 +31,7 @@ typedef struct s_data
 	char	*path;
 	char	**env;
 	char	*cmd;
+	char	*jn;
 	
 }	t_data;
 

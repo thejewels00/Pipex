@@ -42,12 +42,11 @@ int	main(int argc, char **argv, char **env)
 			vars.cmd = ft_strjoin("/", vars.cmd1[0]);
 			while (j == -1 && vars.env[i])
 			{
-				
-				j = access(ft_strjoin(vars.env[i], vars.cmd), X_OK);
+				vars.jn = ft_strjoin(vars.env[i], vars.cmd);
+				j = access(vars.jn, X_OK);
 				i++;
 			}
-			write(2, vars.env[i - 1], 3200 );
-			j = execve(vars.env[i-1], vars.cmd1, env);
+			j = execve(vars.jn, vars.cmd1, env);
 			if (j == -1)
 				err("execve");
 			//child 2 ================================================================
@@ -68,11 +67,11 @@ int	main(int argc, char **argv, char **env)
 				vars.cmd = ft_strjoin("/", vars.cmd2[0]);
 				while (j == -1 && vars.env[i])
 				{
+					vars.jn = ft_strjoin(vars.env[i], vars.cmd);
 					j = access(ft_strjoin(vars.env[i], vars.cmd), X_OK);
 					i++;
 				}
-			write(2,ft_strjoin(vars.env[i], vars.cmd), 3200 );
-				j = execve(vars.env[i], vars.cmd2, env);
+				j = execve(vars.jn, vars.cmd2, env);
 				if (j == -1)
 					err("execve");
 			}
