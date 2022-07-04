@@ -50,11 +50,12 @@ int	main(int argc, char **argv, char **env)
 			if (j == -1)
 				err("execve");
 			//child 2 ================================================================
+			write(2,"hna",3);
 			vars.pid_2 = fork();
 			if (vars.pid_2 == 0)
 			{
 				// implementation de premiere commande 
-				vars.outfile = open(argv[5], O_CREAT | O_RDONLY | O_TRUNC); // trunk :D 
+				vars.outfile = open(argv[5], O_CREAT | O_RDWR | O_TRUNC); // trunk :D 
 				if (vars.outfile == -1)
 					err("outfile");
 				int o = dup2(vars.fileds[0], 0); // dupi output m3a pipe
