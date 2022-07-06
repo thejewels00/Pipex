@@ -6,7 +6,7 @@
 /*   By: jchennak <jchennak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 21:02:52 by jchennak          #+#    #+#             */
-/*   Updated: 2022/07/04 21:24:39 by jchennak         ###   ########.fr       */
+/*   Updated: 2022/07/06 00:35:12 by jchennak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_data
 {
-	int		fileds[2]; 
+	int		pip_fds[2]; 
 	pid_t	pid;
 	pid_t	pid_2;
 	int		infile;
@@ -45,6 +45,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
+char		*ft_strdup(const char *s1);
 
 
 # endif

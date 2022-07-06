@@ -1,6 +1,6 @@
-CC = cc -g
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror
-SRC_PIPEX = ft_split.c ft_strjoin.c ft_strlen.c ft_strnstr.c ft_substr.c main.c
+SRC_PIPEX = ft_split.c ft_strjoin.c ft_strlen.c ft_strnstr.c ft_substr.c pipex.c ft_strdup.c
 PIPEX = pipex
 PIPEX_OBJ = $(SRC_PIPEX:%.c=%.o)
 
@@ -18,7 +18,7 @@ re : fclean all
 
 
 $(PIPEX) :  $(PIPEX_OBJ) 
-	@$(CC) $(CFLAGS) $(PIPEX_OBJ) -o $(PIPEX)
+	$(CC) $(CFLAGS) $(PIPEX_OBJ) -o $(PIPEX)
 	@printf "\n\033[1;33m**** PIPEX compiled Succesfully ! ****\033[0m\n\n"
 
 %.o:%.c
